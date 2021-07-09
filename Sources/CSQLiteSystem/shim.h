@@ -1,6 +1,6 @@
-//On e.g. Android where we don't have a system provided SQLite version
-#include "include/sqlite3.h"
-
+//Conditionally included when we have a system provided sqlite version
+#include <sqlite3.h>
+//To test that this is loaded: debug error here!
 
 typedef void(*errorLogCallback)(void *pArg, int iErrCode, const char *zMsg);
 

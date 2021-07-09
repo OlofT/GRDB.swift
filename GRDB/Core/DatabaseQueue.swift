@@ -38,11 +38,13 @@ public final class DatabaseQueue: DatabaseWriter {
             configuration: configuration,
             defaultLabel: "GRDB.DatabaseQueue")
         
+        
+        
+        #if os(iOS)
         setupSuspension()
         
         // Be a nice iOS citizen, and don't consume too much memory
         // See https://github.com/groue/GRDB.swift/#memory-management
-        #if os(iOS)
         setupMemoryManagement()
         #endif
     }
@@ -145,7 +147,7 @@ extension DatabaseQueue {
     func resume() {
         writer.resume()
     }
-    
+    #if os(iOS)
     private func setupSuspension() {
         if configuration.observesSuspensionNotifications {
             let center = NotificationCenter.default
@@ -171,6 +173,7 @@ extension DatabaseQueue {
     private func resume(_ notification: Notification) {
         resume()
     }
+    #endif
     
     // MARK: - Reading from Database
     

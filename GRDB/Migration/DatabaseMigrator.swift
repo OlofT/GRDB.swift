@@ -270,6 +270,11 @@ public struct DatabaseMigrator {
             try migration.run(db)
         }
     }
+    #if os(iOS)
+    static let globallyUniqueString = ProcessInfo().globallyUniqueString
+    #else
+    static let globallyUniqueString = "\(UInt64.random(in: 0..<UInt64.max))"
+    #endif
     
     private func migrate(_ db: Database, upTo targetIdentifier: String) throws {
         if eraseDatabaseOnSchemaChange {
@@ -310,13 +315,14 @@ public struct DatabaseMigrator {
                         // for an issue created by such databases.
                         //
                         // So let's create a "regular" temporary database:
+                        
                         let tmpURL = URL(fileURLWithPath: NSTemporaryDirectory())
-                            .appendingPathComponent(ProcessInfo().globallyUniqueString)
+                            .appendingPathComponent(DatabaseMigrator.globallyUniqueString)
                         defer {
-                            try? FileManager().removeItem(at: tmpURL)
+                            try? FileManager().removeItem(atPath: tmpURL.path)
                         }
                         let tmpDatabase = try DatabaseQueue(path: tmpURL.path, configuration: tmpConfig)
-                        return try tmpDatabase.writeWithoutTransaction { db in
+                        return try tmpDatabase.writeWithoutTransaction { db -> SchemaInfo in
                             try runMigrations(db, upTo: lastAppliedIdentifier)
                             return try db.schema(.main)
                         }

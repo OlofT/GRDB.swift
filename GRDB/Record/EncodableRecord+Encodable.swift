@@ -125,6 +125,10 @@ private class RecordEncoder<Record: EncodableRecord>: Encoder {
         _persistenceContainer[key.stringValue] = value
     }
     
+    #if os(Android)
+    func autoreleasepool<Result>(invoking body: () throws -> Result) rethrows -> Result
+    #endif
+    
     @inline(__always)
     fileprivate func encode<T>(_ value: T, forKey key: CodingKey) throws where T: Encodable {
         if let date = value as? Date {

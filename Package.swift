@@ -38,3 +38,12 @@ let package = Package(
     ],
     swiftLanguageVersions: [.v5]
 )
+
+/*
+ TODO: conditionally import system libraries instead of bundling SQLite for every project.
+if false {
+    package.targets.first(where: { $0.type == .system })!.path = "Sources/CSQLiteSystem"
+    package.targets.first(where: { $0.type == .system })!.
+ providers = [.apt(["libsqlite3-dev"])]),
+}
+*/

@@ -92,11 +92,11 @@ public final class DatabasePool: DatabaseWriter {
             }
         }
         
+        #if os(iOS)
         setupSuspension()
         
         // Be a nice iOS citizen, and don't consume too much memory
         // See https://github.com/groue/GRDB.swift/#memory-management
-        #if os(iOS)
         setupMemoryManagement()
         #endif
     }
@@ -248,7 +248,7 @@ extension DatabasePool: DatabaseReader {
         }
         writer.resume()
     }
-    
+    #if os(iOS)
     private func setupSuspension() {
         if configuration.observesSuspensionNotifications {
             let center = NotificationCenter.default
@@ -274,6 +274,7 @@ extension DatabasePool: DatabaseReader {
     private func resume(_ notification: Notification) {
         resume()
     }
+    #endif
     
     // MARK: - Reading from Database
     
