@@ -18,8 +18,8 @@ let package = Package(
     ],
     targets: [
         .systemLibrary(
-            name: "CSQLite",
-            providers: [.apt(["libsqlite3-dev"])]),
+            name: "CSQLite"
+            ),
         .target(
             name: "GRDB",
             dependencies: ["CSQLite"],
