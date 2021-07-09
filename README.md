@@ -1,4 +1,4 @@
-This is a fork of [the GRDB toolkit](https://github.com/groue/GRDB.swift) to cross-compile GRDB on Android as well as all other platforms. GRDB is a toolkit for SQLite databases, with a focus on application development
+This is a fork of [the GRDB toolkit](https://github.com/groue/GRDB.swift) to deploy GRDB on Android as well as all other platforms. GRDB is a toolkit for SQLite databases, with a focus on application development
 
 ![Swift 5.4 and up](https://img.shields.io/badge/swift-5.4-orange.svg?style=flat)
 ![Built for Linux, Android, iOS and mac](https://img.shields.io/badge/platform-Android%20%7C%20Linux%20%7C%20iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS%20-red)
