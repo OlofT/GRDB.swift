@@ -125,7 +125,7 @@ private class RecordEncoder<Record: EncodableRecord>: Encoder {
         _persistenceContainer[key.stringValue] = value
     }
     
-    #if os(Android)
+    #if os(Android) || os(Linux)
     func autoreleasepool<Result>(invoking body: () throws -> Result) rethrows -> Result
     #endif
     
