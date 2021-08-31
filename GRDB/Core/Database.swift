@@ -603,7 +603,7 @@ public final class Database: CustomStringConvertible, CustomDebugStringConvertib
         if options.isEmpty || trace == nil {
             #if GRDBCUSTOMSQLITE || GRDBCIPHER || os(iOS)
             sqlite3_trace_v2(sqliteConnection, 0, nil, nil)
-            #elseif os(Linux)
+            #elseif os(Android) || os(Linux)
             sqlite3_trace(sqliteConnection, nil)
             #else
             if #available(OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
@@ -626,7 +626,7 @@ public final class Database: CustomStringConvertible, CustomDebugStringConvertib
             db.trace_v2(CInt(bitPattern: mask), p, x, sqlite3_expanded_sql)
             return SQLITE_OK
         }, dbPointer)
-        #elseif os(Linux)
+        #elseif os(Android) || os(Linux)
         setupTrace_v1()
         #else
         if #available(OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
@@ -683,7 +683,7 @@ public final class Database: CustomStringConvertible, CustomDebugStringConvertib
                 
                 #if GRDBCUSTOMSQLITE || GRDBCIPHER || os(iOS)
                 trace(TraceEvent.profile(statement: statement, duration: duration))
-                #elseif os(Linux)
+                #elseif os(Android) || os(Linux)
                 #else
                 if #available(OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
                     trace(TraceEvent.profile(statement: statement, duration: duration))
@@ -1497,7 +1497,7 @@ extension Database {
         ///
         /// See `Database.trace(options:_:)`
         public static let profile = TracingOptions(rawValue: SQLITE_TRACE_PROFILE)
-        #elseif os(Linux)
+        #elseif os(Android) || os(Linux)
         #else
         /// Reports executed statements and the estimated duration that the
         /// statement took to run.
@@ -1529,7 +1529,7 @@ extension Database {
             ///
             ///     UPDATE player SET score = ? WHERE id = ?
             public var sql: String { _sql }
-            #elseif os(Linux)
+            #elseif os(Android) || os(Linux)
             #else
             /// The executed SQL, where bound parameters are not expanded.
             ///

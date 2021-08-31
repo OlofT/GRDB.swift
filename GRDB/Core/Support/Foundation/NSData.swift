@@ -1,4 +1,4 @@
-#if !os(Linux)
+#if !os(Linux) && !os(Android)
 import Foundation
 
 /// NSData is convertible to and from DatabaseValue.

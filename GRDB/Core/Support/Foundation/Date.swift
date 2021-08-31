@@ -1,6 +1,6 @@
 import Foundation
 
-#if !os(Linux)
+#if !os(Linux) && !os(Android)
 /// NSDate is stored in the database using the format
 /// "yyyy-MM-dd HH:mm:ss.SSS", in the UTC time zone.
 extension NSDate: DatabaseValueConvertible {

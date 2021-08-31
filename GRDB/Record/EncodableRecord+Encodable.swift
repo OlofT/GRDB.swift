@@ -124,13 +124,13 @@ private class RecordEncoder<Record: EncodableRecord>: Encoder {
         _persistenceContainer[key.stringValue] = value
     }
     
-    /*
-     This was part of my "fix" don't understand how it could've compiled...
+    //If on linux/android there are no releasepool, and no need for it since no obj-c. All is ARC.
+    #if os(Android) || os(Linux)
+    func autoreleasepool<Result>(invoking body: () throws -> Result) rethrows -> Result {
+        try body()
+    }
+    #endif
      
-     #if os(Android) || os(Linux)
-     func autoreleasepool<Result>(invoking body: () throws -> Result) rethrows -> Result
-     #endif
-     */
     
     fileprivate func encode<T>(_ value: T, forKey key: CodingKey) throws where T: Encodable {
         if let date = value as? Date {
