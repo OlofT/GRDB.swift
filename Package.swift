@@ -17,9 +17,7 @@ let package = Package(
     dependencies: [
     ],
     targets: [
-        .systemLibrary(
-            name: "CSQLite"
-            ),
+        .systemLibrary(name: "CSQLite"),
         .target(
             name: "GRDB",
             dependencies: ["CSQLite"],
